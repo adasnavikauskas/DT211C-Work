@@ -7,11 +7,11 @@ rev_str = reversed(my_string)
 
 if list(my_str) == reversed(my_string):
 {
-  print("it is palindrome")
+  print("True")
 }
 else:
 {
-  print("it is not palindrome")
+  print("False")
 }
 //version 2
 //version 3
