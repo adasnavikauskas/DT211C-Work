@@ -1,4 +1,5 @@
-//author : Adas Navikauskas
+/*author Adas Navikauskas*/
+
 my_string = input("Enter string: ")
 
 my_string = my_string.casefold()
