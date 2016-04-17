@@ -15,3 +15,17 @@ echo "|-------------------------------------------------------------"
 echo "|  BACKUP YOUR SYSTEM: "
 OPTIONS="Backup Destination Exit"
 LIST="1) Backup 2) Specify Destination 3) Exit"
+
+select opt in $OPTIONS; do
+if [ "$opt" = "Exit" ]; then
+    clear
+    exit
+
+elif [ "$opt" = "Backup" ]; then
+    if [ ${#DEST_DIR} -gt 0 ]; then
+        ROOT_EXCLUDE_DIRS=${ROOT_EXCLUDE_DIRS///backup*.tgz/$DEST_DIR}
+    fi
+    tar cvpfz $DEST_DIR/backup.`date +%d%m%y_%k%M`.tgz $ROOT $ROOT_EXCLUDE_DIRS
+    echo "| BACKUP COMPLETE!"
+    exit
+done
