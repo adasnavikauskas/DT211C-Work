@@ -46,4 +46,12 @@ elif [ "$opt" = "Destination" ]; then
     echo "|--------------------------------------------------------------"
     echo "|  BACKUP YOUR SYSTEM: "
     echo $LIST
+else
+    clear
+    echo "| BAD OPTION! Select 1 or 2"
+    echo "|--------------------------------------------------------------"
+    echo "|  BACKUP YOUR SYSTEM: "
+    echo $LIST
+fi
 done
+
