@@ -3,7 +3,7 @@ ROOT_EXCLUDE_DIRS="--exclude=/media/* --exclude=/tmp/* --exclude=/dev/* --exclu$
 DEST_DIR="/home/network/backupDest"
 
 #------------------------------------------------------------------------------$
-#             DO NOT CHANGE ANYTHING BELOW THIS LINE
+#             			ADAS BACKUP SCRIPT
 #------------------------------------------------------------------------------$
 if [ "$USER" != "root" ]; then
     echo "You are not root user, use: sudo backup"
@@ -28,4 +28,22 @@ elif [ "$opt" = "Backup" ]; then
     tar cvpfz $DEST_DIR/backup.`date +%d%m%y_%k%M`.tgz $ROOT $ROOT_EXCLUDE_DIRS
     echo "| BACKUP COMPLETE!"
     exit
+elif [ "$opt" = "Destination" ]; then
+    echo "| Actual Destination: $DEST_DIR/backup.`date +%d%m%y_%k%M`.tgz "
+    echo "| For change it, just input some ABSOLUTE path "
+    echo "| For leave it as it is, just input nothing an push Return"
+    read NEW_DEST
+
+    # if the NEW_DEST length is > 0 then we assign it
+    if [ ${#NEW_DEST} -gt 0 ]; then
+        DEST_DIR="$NEW_DEST"
+    fi
+    clear
+
+    if [ ! -d $DEST_DIR ]; then
+        echo "| WARNING: Specified Destination Dir: $DEST_DIR/ does not exist, $
+    fi
+    echo "|--------------------------------------------------------------"
+    echo "|  BACKUP YOUR SYSTEM: "
+    echo $LIST
 done
