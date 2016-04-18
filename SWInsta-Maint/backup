@@ -1,3 +1,4 @@
+#!/bin/bash
 ROOT="/*"
 ROOT_EXCLUDE_DIRS="--exclude=/media/* --exclude=/tmp/* --exclude=/dev/* --exclu$
 DEST_DIR="/home/network/backupDest"
