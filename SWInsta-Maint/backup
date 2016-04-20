@@ -1,21 +1,20 @@
 #!/bin/bash
 ROOT="/*"
-ROOT_EXCLUDE_DIRS="--exclude=/media/* --exclude=/tmp/* --exclude=/dev/* --exclu$
-DEST_DIR="/home/network/backupDest"
+ROOT_EXCLUDE_DIRS="--exclude=/backup*.tgz --exclude=/dev/* --exclude/proc/* --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude=/lost+found"
+DEST_DIR="/backupDest"
 
-#------------------------------------------------------------------------------$
-#             			ADAS BACKUP SCRIPT
-#------------------------------------------------------------------------------$
-if [ "$USER" != "root" ]; then
-    echo "You are not root user, use: sudo backup"
+#------------------------------------------------------------------------------------
+#             		Adas Backup Script 
+#------------------------------------------------------------------------------------
+if [ "$USER" != "root" ]; then 
+    echo "You're not rootr, use: sudo backup"
     exit
 fi
 :PRINTMSG
-clear
-echo "|-------------------------------------------------------------"
+
 echo "|  BACKUP YOUR SYSTEM: "
 OPTIONS="Backup Destination Exit"
-LIST="1) Backup 2) Specify Destination 3) Exit"
+LIST="1) Backup 2) Specify Destination 3) Exit" 
 
 select opt in $OPTIONS; do
 if [ "$opt" = "Exit" ]; then
@@ -30,9 +29,12 @@ elif [ "$opt" = "Backup" ]; then
     echo "| BACKUP COMPLETE!"
     exit
 elif [ "$opt" = "Destination" ]; then
-    echo "| Actual Destination: $DEST_DIR/backup.`date +%d%m%y_%k%M`.tgz "
-    echo "| For change it, just input some ABSOLUTE path "
-    echo "| For leave it as it is, just input nothing an push Return"
+    echo "| Place where tar file will be saved: $DEST_DIR/"
+    echo "| Current available directories and files"
+    cd ~
+    ls /
+    echo "| To change,input some ABSOLUTE path "
+    echo "| To keep it the same press enter"
     read NEW_DEST
 
     # if the NEW_DEST length is > 0 then we assign it
@@ -42,11 +44,11 @@ elif [ "$opt" = "Destination" ]; then
     clear
 
     if [ ! -d $DEST_DIR ]; then
-        echo "| WARNING: Specified Destination Dir: $DEST_DIR/ does not exist, $
+        echo "| WARNING: Specified Destination Dir: $DEST_DIR/ does not exist, yet"
     fi
     echo "|--------------------------------------------------------------"
     echo "|  BACKUP YOUR SYSTEM: "
-    echo $LIST
+    echo $LIST-
 else
     clear
     echo "| BAD OPTION! Select 1 or 2"
@@ -55,4 +57,3 @@ else
     echo $LIST
 fi
 done
-
