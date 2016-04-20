@@ -4,6 +4,7 @@ ROOT_EXCLUDE_DIRS="--exclude=/backup*.tgz --exclude=/dev/* --exclude/proc/* --ex
 DEST_DIR="/backupDest"
 
 #------------------------------------------------------------------------------------
+#god damit steve
 #             		Adas Backup Script 
 #------------------------------------------------------------------------------------
 if [ "$USER" != "root" ]; then 
