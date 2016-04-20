@@ -1,0 +1,82 @@
+#!/bin/bash
+BACKUP_FILE="/backupDest/backup.180416_1643.tgz"
+CREATE_DIRS="/proc /sys /mnt /mnt/mounted_drive"
+RESTORE_DEST="/restoreDest"
+#---------------------------------------------------------------------------------
+#           		ADAS RESTORE SCRIPT              
+#---------------------------------------------------------------------------------
+if [ "$USER" != "root" ]; then
+    echo "You are not root user, use: sudo restore"
+    exit
+fi
+clear
+echo "|  RESTORE YOUR SYSTEM:"
+tput sgr0
+OPTIONS="Restore Exit File Destination"
+LIST="1) Restore 2) Exit 3) Change File 4) Change Restore Destination"
+
+select opt in $OPTIONS; do
+if [ "$opt" = "Exit" ]; then
+    clear
+    exit
+elif [ "$opt" = "Restore" ]; then
+    tar xvpfz $BACKUP_FILE -C /restoreDest
+    echo "|  RESTORE COMPLETE "
+    if [[ -e "/proc" ]]; then
+        echo "$CREATE_DIRS allready exists! "
+    else
+        mkdir $CREATE_DIRS
+        echo "$CREATE_DIRS are created! "
+    fi
+    exit
+elif [ "$opt" = "File" ]; then
+    echo "| Current backup you are working with: $BACKUP_FILE"
+    echo "| Files Available:"
+    ls /backupDest
+    echo "| To Change Files, Read in an Absolute path "
+    echo "| To keep the same file press enter"
+    read NEW_FILE
+
+    # if the NEW_DEST length is > 0 then we assign it
+    if [ ${#NEW_FILE} -gt 0 ]; then
+        BACKUP_FILE="$NEW_FILE"
+    fi
+    clear
+
+    if [ ! -d $DEST_DIR ]; then
+        echo "| WARNING: Specified Destination Dir: $DEST_DIR/ does not exist yet"
+    fi
+    echo "|--------------------------------------------------------------"
+    echo "|  BACKUP YOUR SYSTEM: "
+    echo $LIST
+
+elif [ "$opt" = "Destination" ]; then
+    echo "| Where you will restore your tar file: $RESTORE_DEST"
+    echo "| Directories Available:"
+    cd ~
+    cd ..
+    ls -a
+    echo "| To Change Directories, Read in an Absolute path "
+    echo "| To keep the same directory press enter"
+    read NEW_DIRECTORY
+
+    # if the NEW_DEST length is > 0 then we assign it
+    if [ ${#NEW_DIRECTORY} -gt 0 ]; then
+        RESTORE_DEST="NEW_DIRECTORY"
+    fi
+    clear
+
+    if [ ! -d $DEST_DIR ]; then
+        echo "| WARNING: Specified Destination Dir: $DEST_DIR/ does not exist yet"
+    fi
+    echo "|--------------------------------------------------------------"
+    echo "|  BACKUP YOUR SYSTEM: "
+    echo $LIST
+else
+    clear
+    echo "| BAD OPTION! Select 1 or 2"
+    echo "|--------------------------------------------------------------"
+    echo "|  RESTORE YOUR SYSTEM:"
+    echo $LIST
+fi
+done
