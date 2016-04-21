@@ -1,0 +1,7 @@
+ROOT="/*"
+ROOT_EXCLUDE_DIRS="--exclude=/backup*.tgz --exclude=/dev/* --exclude=/proc/*  --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude=/lost+found"
+
+DEST_DIR="/home/network/linux/backupFolder"
+
+
+tar cvpfz $DEST_DIR/backup.`date +%d%m%y_%k%M`.tgz $ROOT $ROOT_EXCLUDE_DIRS
