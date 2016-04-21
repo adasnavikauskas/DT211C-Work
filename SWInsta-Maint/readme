@@ -1,0 +1,62 @@
+READ ME FILE FOR THE BACKUP AND RESTORE SYSTEMS
+
+FULL SYSTEM BACKUP AND RESTORE USING TAR
+
+
+########################################################
+My Strategy:
+
+Runs a full system backup using the Tar Command.
+
+TO BACKUP EVERYTHING AUTOMATICALLY::
+	1) download the autoBackup file
+	2) give permission to it "chomd 777 autoBackup"
+	3) place it into your /bin folder using root
+	4) go to "sudo su" "cd ~" "cd .." 
+		and "mkdir backupDest"
+	5) from anywhere, run the command "autoBackup"
+	
+	--optional--
+	IF you want this scheduled, using crontab -e
+	enter in : 
+	0 0 28 * * autoBackup >/dev/null 2>&1
+	this will run on:
+	28th of every month at 12am
+########################################################
+
+TO RUN A MANUAL BACKUP = must be root
+	1) Download backup code
+	2) Give Permission to it "chmod 777 backup"
+	3) go to "sudo su" "cd ~" "cd .."
+                and "mkdir backupDest"
+	3.1) copy the backup file into the /bin folder
+	4) run the command "sudo backup"
+	5.1) To change where you want to save the backup
+		choose the "Change destination" option
+	5.2) Add in an absolute path
+	5.3) error checking will occur to check if dir
+		exists
+	6) Run backup 
+
+#######################################################
+
+TO RUN A MANUAL RESTORE = must be root
+
+	 1) Download restore code
+         2) Give Permission to it "chmod 777 restore"
+	 3) go to "sudo su" "cd ~" "cd .."
+                and "mkdir restoreDest"
+         3.1) place it in the /bin folder
+         4) run the command sudo backup
+	 5.1) To change file to restore select option
+		file 
+	 5.2) enter option from files available with
+		with absolute path
+ 	 5.1) To change where you want to restore the
+		 backup
+                choose the "Change destination" option
+         5.2) Add in an absolute path
+         5.3) error checking will occur to check if dir
+                exists
+         6) Run "sudo restore"
+######################################################
