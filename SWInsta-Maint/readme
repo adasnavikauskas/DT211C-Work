@@ -11,7 +11,7 @@ Runs a full system backup using the Tar Command.
 TO BACKUP EVERYTHING AUTOMATICALLY::
 	1) download the autoBackup file
 	2) give permission to it "chomd 777 autoBackup"
-	3) place it into your /bin folder using root
+	3) copy the autoBackup script into your /bin folder using root
 	4) go to "sudo su" "cd ~" "cd .." 
 		and "mkdir backupDest"
 	5) from anywhere, run the command "autoBackup"
@@ -21,6 +21,7 @@ TO BACKUP EVERYTHING AUTOMATICALLY::
 	enter in : 
 	0 0 28 * * autoBackup >/dev/null 2>&1
 	this will run on:
+	0 minute, 24th hour (12am), 28th day of every month, of any day
 	28th of every month at 12am
 ########################################################
 
@@ -46,7 +47,7 @@ TO RUN A MANUAL RESTORE = must be root
          2) Give Permission to it "chmod 777 restore"
 	 3) go to "sudo su" "cd ~" "cd .."
                 and "mkdir restoreDest"
-         3.1) place restore script in the /bin folder
+         3.1) copy restore script in the /bin folder
          4) run the command sudo backup
 	 5.1) To change file to restore select option
 		file 
