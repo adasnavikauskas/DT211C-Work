@@ -46,7 +46,7 @@ TO RUN A MANUAL RESTORE = must be root
          2) Give Permission to it "chmod 777 restore"
 	 3) go to "sudo su" "cd ~" "cd .."
                 and "mkdir restoreDest"
-         3.1) place it in the /bin folder
+         3.1) place restore script in the /bin folder
          4) run the command sudo backup
 	 5.1) To change file to restore select option
 		file 
