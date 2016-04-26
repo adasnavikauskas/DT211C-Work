@@ -1,17 +1,19 @@
 #!/bin/bash
 ROOT="/*"
-ROOT_EXCLUDE_DIRS="--exclude=/backup*.tgz --exclude=/dev/* --exclude/proc/* --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude=/lost+found"
+ROOT_EXCLUDE_DIRS="--exclude=/backup*.tgz --exclude=/dev/* --exclude=/proc/* --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude=/lost+found"
 DEST_DIR="/backupDest"
-
+LOGFILE="/var/log/backup.log"
+DATE=`date +%d%m%y_%k%M`
+LOGMESSAGE="Attempted backup at :  "
+SBLOG="--> $DATE -- BACKUP -- Full System Back Up -- SUCCESSFULL  Backup <--"
+FBLOG="--> $DATE -- BACKUP -- Full System Back Up -- UNSUCCESSFULL  Backup <--"
 #------------------------------------------------------------------------------------
-#god damit steve
-#             		Adas Backup Script 
+#edit             		Adas Backup Script 
 #------------------------------------------------------------------------------------
 if [ "$USER" != "root" ]; then 
-    echo "You're not rootr, use: sudo backup"
+    echo "You're not root, use: sudo backup"
     exit
 fi
-:PRINTMSG
 
 echo "|  BACKUP YOUR SYSTEM: "
 OPTIONS="Backup Destination Exit"
@@ -23,12 +25,28 @@ if [ "$opt" = "Exit" ]; then
     exit
 
 elif [ "$opt" = "Backup" ]; then
-    if [ ${#DEST_DIR} -gt 0 ]; then
-        ROOT_EXCLUDE_DIRS=${ROOT_EXCLUDE_DIRS///backup*.tgz/$DEST_DIR}
-    fi
-    tar cvpfz $DEST_DIR/backup.`date +%d%m%y_%k%M`.tgz $ROOT $ROOT_EXCLUDE_DIRS
-    echo "| BACKUP COMPLETE!"
-    exit
+	if [ ${#DEST_DIR} -gt 0 ]; then
+        	ROOT_EXCLUDE_DIRS=${ROOT_EXCLUDE_DIRS///backup*.tgz/$DEST_DIR}
+	fi
+	tar cvpfz $DEST_DIR/backup.`date +%d%m%y_%k%M`.tgz $ROOT $ROOT_EXCLUDE_DIRS
+	echo "| BACKUP COMPLETE!"
+	if  [ "$?" -eq 0 ]
+	then
+                if [ ! -e /$LOGFILE ]
+                then
+                        echo $SBLOG > /$LOGFILE
+                else
+                        echo $SBLOG >> /$LOGFILE
+                fi
+	else
+                if [ ! -e /$LOGFILE ]
+                then
+                        echo $FBLOG > /$LOGFILE
+                else
+                        echo $FBLOG >> /$LOGFILE
+		fi
+	fi
+
 elif [ "$opt" = "Destination" ]; then
     echo "| Place where tar file will be saved: $DEST_DIR/"
     echo "| Current available directories and files"
