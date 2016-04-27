@@ -1,6 +1,6 @@
 #!/bin/bash
 ROOT="/*"
-ROOT_EXCLUDE_DIRS="--exclude=/backup*.tgz --exclude=/dev/* --exclude=/proc/* --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude=/lost+found"
+ROOT_EXCLUDE_DIRS="--exclude=/bin/z --exclude=/restoreDest --exclude=/backupDest/ --exclude=/home/* --exclude=/backup*.tgz --exclude=/dev/* --exclude=/proc/* --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude=/lost+found"
 DEST_DIR="/backupDest"
 LOGFILE="/var/log/backup.log"
 DATE=`date +%d%m%y_%k%M`
@@ -26,9 +26,9 @@ if [ "$opt" = "Exit" ]; then
 
 elif [ "$opt" = "Backup" ]; then
 	if [ ${#DEST_DIR} -gt 0 ]; then
-        	ROOT_EXCLUDE_DIRS=${ROOT_EXCLUDE_DIRS///backup*.tgz/$DEST_DIR}
+        	ROOT_EXCLUDE_DIRS=${ROOT_EXCLUDE_DIRS/backup*.tgz/$DEST_DIR}
 	fi
-	tar cvpfz $DEST_DIR/backup.`date +%d%m%y_%k%M`.tgz $ROOT $ROOT_EXCLUDE_DIRS
+	tar cvpfz /$DEST_DIR/backup.`date +%d%m%y_%k%M`.tgz $ROOT $ROOT_EXCLUDE_DIRS
 	echo "| BACKUP COMPLETE!"
 	if  [ "$?" -eq 0 ]
 	then
