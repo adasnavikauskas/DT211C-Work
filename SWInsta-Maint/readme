@@ -2,7 +2,12 @@ READ ME FILE FOR THE BACKUP AND RESTORE SYSTEMS
 
 FULL SYSTEM BACKUP AND RESTORE USING TAR
 
-
+N.B <------ MAKE SURE TO MANUALLY CREATE backupDest and restoreDest INTO YOUR / directory
+example
+sudo su
+cd /
+mkdir backupDest
+mkdir restoreDest
 ########################################################
 My Strategy:
 
